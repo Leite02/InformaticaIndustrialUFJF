@@ -2,7 +2,7 @@ class Conta():
     """
     Classe Conta
     """
-    _saldo = 0.0
+    _saldo = 0.0 #atributo saldo protegido (1 underline)
     def __init__(self, numero, titular, senha,saldoi=0.0):
         """
         Construtor da classe Conta
@@ -89,6 +89,7 @@ class ContaPoupanca(Conta):#Cria uma classe derivada da classe conta,mantendo to
         :param taxa: taxa de rendimento mensal
         :param saldoi: saldo inicial da conta (padrão = 0.0)
         """
+        #invocamos o construtor da base para a classe derivada
         super().__init__(numero,titular,senha,saldoi)#super() é utilizado para se referir a uma função da classe na qual essa é derivada, no caso o construtor da classe Conta
         self.__taxa = taxa
     

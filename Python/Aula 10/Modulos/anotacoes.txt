@@ -1,0 +1,26 @@
+FUNÇÕES (sub-rotinas)
+    Em python, utiliza-se o conceito de passagem por atribuição ou por referência de objeto
+
+    Quando objeto paassado como argumento é imutavel: 
+    uma mudança da variavel dentro da função NÃO PROVOCARÁ uma mudança na variavel do metodo que a invocou
+
+    Quando objeto paassado como argumento é mutavel: 
+    uma mudança da variavel dentro da função PROVOCARÁ uma mudança na variavel do metodo que a invocou
+
+CRIAÇÃO DE MÓDULOS
+    Módulos são arquivoss que possuem um conjunto de declarações e definições
+
+    O nome do módulo é o nome do arquivo sem o '.py'
+
+    Exemplo:
+        Nome do arquivo: minhalib.py
+        Nome do módulo: minhalib
+
+    Importar modulo todo: import modulo
+    Importar somente func1 e var1: from modulo import func1 var1
+
+    Para executar um módulo como script (usar direto, sem ter que ter um arquivo para importar), deve-se incluir:
+        if __name__== "__main__":
+            expressões
+    Tudo que etiver declarado dentro do bloco if não será executado no import, mas somente ... (ver slide)
+    

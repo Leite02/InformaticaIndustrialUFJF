@@ -1,0 +1,37 @@
+CLASSES
+
+    Conceito é o mesmo que em outras linguagens, as classes são utilizadas de modelos
+    para a criação de objetos
+
+    class NomedaClasse:
+        def __init__(self,arg1,arg2): #self é o "this" do c++
+            self.attr1 = arg1
+            self.attr2 = arg2
+        def metodo(self):
+            expressoes
+
+    Especificadores de acesso:
+    - "__" (2x underscore) para atributos e metodos PRIVADOS
+    - "_" (1x underscore) para atributos e métodos PROTEGIDOS
+
+    Acesso aos atributos e métodos do objeto
+    - O acesso aos atributos e métodos dentro das funções-membro pode ser feito pela
+        palavra-chave "self" (análoga ao ponteiro this do c++)
+
+    Construtor:
+        método especial chamado __init__()
+        é invocado automaticamente quando o objeto é instanciado
+
+    Destrutor:
+        Pode ser definido utilizando o método __del()__ mas dificilmente é utilizado
+        já que o python usa garbage collector
+
+HERANÇA:
+    Conceito é o mesmo que em outras linguagens
+
+    Para realizar a herança basta na definição da nova classe utilizara o nome da classe base entre parenteses:
+        class NovaClasse(ClasseBase):
+    
+    Métodos da classe base podem ser sobescritos na classe derivada (polimorfismo automatico)
+
+    usamos o super() para referir ao metodo da base

@@ -1,0 +1,18 @@
+VARIAVEIS
+
+    Em python, todos os dados são objetos, inclusive os mais simples como inteiros, booleanos, etc.
+
+    OBJETOS MUTAVEIS
+    -Objetos cujo valores podem ser modificados. Ex: listas, dicionarios, objetos definidos pelo usuario.
+    -Quando atribuimos valores novos, valor anterior vira lixo de memoria, novo é atribuido
+        O garbage collector vai e identifica esse lixo e deleta, no c++ iriamos ter que dar delete
+
+    exemplo:
+        x = [0,1,2,3]
+        y = x
+        y[2] = 8 #alteria o valor para o x e p/ o y. Pois listas são mutáveis.
+        "parecido com passagem por referencia"
+
+    OBJETOS IMUTAVEIS
+    -Objeto cujos valores não podem ser modificados. Ex: Números, tuplas, booleanos, strings.
+    
