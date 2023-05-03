@@ -21,7 +21,6 @@ class Banco:
         """
         Método para atendimento geral do banco
         """
-        status_atendimento = True
         atendimento_geral = True
         while atendimento_geral:
             print("Bem vindo ao sistema de atendimento do banco:")
@@ -36,7 +35,6 @@ class Banco:
                 case 2:
                     self.atendimentoGerente()
                 case 3:
-                    status_atendimento = False
                     atendimento_geral = False
 
     def atendimentoCliente(self):
@@ -47,14 +45,15 @@ class Banco:
         print("Bem vindo ao sistema de atendimento ao Cliente")
         print("Digite o número da sua conta: ")
         numeroConta = int(input())
-
-        if numeroConta == None:
+        conta_cliente = self.buscaConta(numeroConta)
+        
+        if numeroConta == None or conta_cliente == None:
             print("Conta inválida")
         else:
             print("Digite a sua senha: ")
             senhain = int(input())
-            if self.__contas[numeroConta - 1].validaSenha(senhain):
-                print("Olá ", self.__contas[numeroConta - 1].titular)
+            if conta_cliente.validaSenha(senhain):
+                print("Olá ", conta_cliente.titular)
                 while atendimento:
                     print(
                         "Qual operação deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Trocar senha, 5 - Sair)"
@@ -64,17 +63,17 @@ class Banco:
                         case 1:
                             print("Digite o valor: ")
                             valor = float(input())
-                            self.__contas[numeroConta - 1].saque(senhain, valor)
+                            conta_cliente.saque(senhain, valor)
                         case 2:
                             print("Digite o valor: ")
                             valor = float(input())
-                            self.__contas[numeroConta - 1].deposito(valor)
+                            conta_cliente.deposito(valor)
                         case 3:
-                            self.__contas[numeroConta - 1].exibeDados(senhain)
+                            conta_cliente.exibeDados(senhain)
                         case 4:
                             print("Digite a nova senha: ")
                             senhanova = int(input())
-                            self.__contas[numeroConta - 1].setSenha(senhanova)
+                            conta_cliente.setSenha(senhanova)
                         case 5:
                             atendimento = False
             else:
@@ -98,16 +97,24 @@ class Banco:
                 print("Olá ", self.__gerentes[numeroGerente - 1].titular)
                 while atendimento:
                     print(
-                        "Qual operação deseja fazer? (1 - Criar nova Conta, 2 - Sair)"
+                        "Qual operação deseja fazer? (1 - Criar nova Conta, 2 - Remover Conta, 3 - Sair)"
                     )
                     operacao = int(input())
                     match operacao:
                         case 1:
                             self.criaContaNova(senhaGerente)
                         case 2:
+                            self.removeConta(senhaGerente)
+                        case 3:
                             atendimento = False
             else:
                 print("Senha inválida")
+    
+    def buscaConta(self,numeroconta):
+        for conta in self.__contas:
+            if conta.numero == numeroconta:
+                return conta
+        return None
 
     def criaContaNova(self, senha):
         numeroAtualdeContas = len(self.__contas)
@@ -121,9 +128,22 @@ class Banco:
         print("Digite a senha da conta: ")
         senhaConta = int(input())
 
-        numeroConta = numeroAtualdeContas + 1
+        numeroConta = (self.__contas[numeroAtualdeContas - 1].numero) + 1
 
         self.__contas.append(Conta(numeroConta, nomeTitular, senhaConta, saldoConta))
         print("Conta criada com sucesso! ")
         print("Dados da nova conta: ")
         self.__contas[numeroAtualdeContas].exibeDados(senhaConta)
+        print('')
+
+    def removeConta(self, senha):
+        print("Entre com o número da conta a ser deletada: ")
+        num_contaremovida = int(input())
+        index = 0
+        for k in self.__contas:
+            if k.numero == num_contaremovida:
+                break
+            index += 1
+
+        self.__contas.pop(index)
+        print("Conta", num_contaremovida, "removida com sucesso")
