@@ -64,7 +64,7 @@ param7 = {
 
 param8 = {
     "Descrição": "Estado do Inversor",
-    "Faixa de valores": "0 = Ready(Pronto) \n 1 = Run (Execução) \n 2 = Subtensão \n 3 = Falha \n 4 = Autoajuste \n 5 = Configuração \n 6 = Frenagem CC \n 7 = Estado Dormir",
+    "Faixa de valores": "0 = Ready(Pronto) , 1 = Run (Execução), 2 = Subtensão, 3 = Falha, 4 = Autoajuste, 5 = Configuração, 6 = Frenagem CC, 7 = Estado Dormir",
     "Ajuste de Fábrica": None,
     "Ajuste do usuário": None,
     "Propr.": "ro",
@@ -127,6 +127,9 @@ dicionarioInversor = {
     "P0011": param12,
 }
 
-for key, value in dicionarioInversor.items():
-    print(key, "->", value)
+for parametro, info_parametro in dicionarioInversor.items():
+    print(parametro, "->")
+    for topicos, info_topicos in info_parametro.items():
+        print(topicos, ":", info_topicos)
+        print('')
     print('')
