@@ -129,3 +129,4 @@ dicionarioInversor = {
 
 for key, value in dicionarioInversor.items():
     print(key, "->", value)
+    print('')
