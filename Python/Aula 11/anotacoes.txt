@@ -1,0 +1,72 @@
+SISTEMAS DISTRIBUÍDOS
+    Redes
+        Para possibilitar a comunicação entre sistemas heterogêneos foi criado o modelo OSI/ISO (protocolos podem usar tais cab.)
+            Cabeçalho da camada de enlace - cab da camada de rede - cab da camada de transporte - cab. da camada de sessão - cab. da camada de apresentação - cab. da camada de aplicação - mensagem - trailer da amada de enlace
+            Todos esss bits são os que realmente aparecem na rede, gastamos mt bits de info extra
+
+            Transformamos o modelo de 7 camadas para uma pilha de protocolos TCP/IP
+                Aplicação/Representação/Sessão
+                transporte
+                Rede 
+                Física e de Enlace
+    
+    Padrões arquiteturais
+        Existem várias arquiteturas p/ comunicação de dispositivos em sistemas distribuídos 
+        - Cliente/Servidor !!!! (o que utilizaremos)
+            Cliente -----Request---->Servidor
+            Cliente <----Response----Servidor
+
+        - Publisher/Subscriber
+        - Transferência Representacional de Estado (REST) (utilizado mt em APIs)
+        - DCOM (Distributed Component Object Model)
+        - Dentre outros
+
+    Cliente-Servidor
+        -Servidor: É um processo que implementa um serviço específico
+        -Cliente: É rocesso que requisita um serviço de um servidor enviando-lhe uma requisição e esperando pela resposta do servidor
+            Cliente requisita e espera... Servidor processa e fornece serviço com resposta e envia pro cliente
+        
+        Cloud Computing: Servidores cloud viraram o comum, ter um servidor hospedado na nuvem
+        Edge Computing: recebe dado na ponta, pré-processa e manda o dado pré-processado pro servidor 
+        Fog Computing: parte processado fora parte dentro
+
+        API Socket:
+            Não nos importaremos como o dado será transmitido
+            Precisamos comunicar com a camada de transporte e enviar dados pra ela, a partir dali ela 'se vira'
+            
+            sistema operacional disponibiliza uma API, a API Socket para q acessemos as camadas debaixo
+            enivamos dados para a api e ela se vira
+
+            Interface que os aplicativos utilizam para interagir com os protocolos. 
+                Servidor espera pedidos de seus clientes, os processa e retorna os resultados aos clientes
+                Clientes conectam a uma porta na máquina onde o servidor está sendo executado
+
+                Temos um endereço (ip): ex. 192.168.0.10 (ipconfig no cmd)
+                e dentro do endereço temos portas (apartamentos dentro do prédio): 80 ; 512 ; 1024 ; etc...
+                    até a porta 1024 elas são padrões para certos tipos de comunicação
+                    via de regra: usar acima de 5000
+                    
+                    (ver fluxograma no slide da api socket)
+                    Servidor:
+                                                             |<-----|
+                        socket-> bind-> listen-> accept-> read-> write-> close
+                                                  pt de sinc
+
+                    Cliente:
+                        socket ---------------> connect -> write -> read -> close 
+
+
+            No python, Módulo socket:
+                Possibilita o acesso à interface socket do sistema operacional de maneira facilitada
+
+                Possui métodos que facilitam a implementação de todo o procedimento de comunicação entre cliente e servidor
+
+                Possibilita a utilização de TCP(orientado à conexão - mais confiavel - mais pixels mas garanto que chega) ou UDP (menor overhead)
+                    UDP-> menos pixels mas não garanto que chega 
+            
+            
+
+
+
+            
+
