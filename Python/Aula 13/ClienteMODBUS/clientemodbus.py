@@ -9,35 +9,35 @@ class ClienteMODBUS():
         """
         Construtor
         """
-        self._cliente = ModbusClient(host=server_ip,port = porta)
-        self._scan_time = scan_time
+        self._cliente = ModbusClient(host=server_ip,port = porta) #cria objeto cliente modbus com ip e porta determinados
+        self._scan_time = scan_time  #seta periodo em que "pergunta" para coletar dados
 
     def atendimento(self):
         """
         Método para atendimento do usuário
         """
-        self._cliente.open()
+        self._cliente.open() #faz a conexão com o servidor
         try:
-            atendimento = True
+            atendimento = True  #tipo atendimento do banco
             while atendimento:
                 sel = input("Deseja realizar uma leitura, escrita ou configuração? (1- Leitura | 2- Escrita | 3- Configuração |4- Sair): ")
                 
                 if sel == '1':
-                    tipo = input ("""Qual tipo de dado deseja ler? (1- Holding Register) |2- Coil |3- Input Register |4- Discrete Input) :""")
-                    addr = input (f"Digite o endereço da tabela MODBUS: ")
-                    nvezes = input ("Digite o número de vezes que deseja ler: ")
+                    tipo = input ("""Qual tipo de dado deseja ler? (1- Holding Register |2- Coil |3- Input Register |4- Discrete Input) :""") #pega o tipo de dado a ler
+                    addr = input (f"Digite o endereço da tabela MODBUS: ") #pega o endereço de leitura
+                    nvezes = input ("Digite o número de vezes que deseja ler: ") #pega o nvezes que quer ler
                     for i in range(0,int(nvezes)):
-                        print(f"Leitura {i+1}: {self.lerDado(int(tipo), int(addr))}")
+                        print(f"Leitura {i+1}: {self.lerDado(int(tipo), int(addr))}") #le o dado de tipo e endereço especificado
                         sleep(self._scan_time)
                 elif sel =='2':
-                    tipo = input ("""Qual tipo de dado deseja escrever? (1- Holding Register) |2- Coil) :""")
-                    addr = input (f"Digite o endereço da tabela MODBUS: ")
-                    valor = input (f"Digite o valor que deseja escrever: ")
-                    self.escreveDado(int(tipo),int(addr),int(valor))
+                    tipo = input ("""Qual tipo de dado deseja escrever? (1- Holding Register) |2- Coil) :""") #pega tipo de dado a escrever
+                    addr = input (f"Digite o endereço da tabela MODBUS: ") #endereço onde deseja escrever
+                    valor = input (f"Digite o valor que deseja escrever: ") #valor que deseja escrever
+                    self.escreveDado(int(tipo),int(addr),int(valor)) #escreve o dado
 
                 elif sel=='3':
                     scant = input("Digite o tempo de varredura desejado [s]: ")
-                    self._scan_time = float(scant)
+                    self._scan_time = float(scant) #muda o tempo de escaneamento
 
                 elif sel =='4':
                     self._cliente.close()

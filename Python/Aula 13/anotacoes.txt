@@ -1,0 +1,84 @@
+SOFTWARES SUPERVISÓRIOS
+    Utilizados p/ monitorar e supervisionar variáveis da planta
+    Conectam-se aos dispositivos através de interfaces de rede
+    Permitem alterar o funcionamento de uma planta de maneira remota
+    Otimizar o funcionamento em "tempo real"
+    Devem possuir uma capacidade de representação gráfica da planta real
+    Muitas vezes são utilizados p/ coletar dados do processo e armazená-los em um Banco de dados
+
+    "Pirâmide Industrial"
+
+                        ERP
+                    --PIMS, MES--
+             ----Supervisão e monitor.---   Disciplina atua aqui, aprenderemos a desenvolver o supervisório!!!
+       -----Dispositivos Controle (DCPS, CLP)----
+    ----------- Sensores e Atuadores---------------
+
+                          SUPERVISÓRIOS
+    Coleta de Dados   Supervisão da Planta   Armazenamento de Dados
+       Protocolos             IHM                Banco de Dados
+        MODBUS              
+
+
+MODBUS
+    3 variantes principais:
+    ASCII: mensagens codific
+    
+    RTU:
+
+    TCP: implementação que utiliza a pilha TCP/IP para camadas inferiores (o que usamos)
+        Classe A: utiliza a pilha TCP/IP padarão (a porta de comunicação utilizada normalmente é a 502)
+        Indicado p/ aplicações que não necessitam operação em tempo real
+
+        Normalmente, em campo teremos um SERVIDOR MODBUS, os dispositivos de campo (CLP, etc)
+        E o computador é que se comunicará com esse servidor. Implementamos o cliente (software supervisório).
+
+        O protocolo MODBUS TCP é basicamente um protocolo da camada de aplicação, uma vez que utiliza a pilha TCP/IP padrão
+        (garante que chegou)
+
+        É um conjunto de "Function Code" com "Data"
+        Cliente envia um codigo de função (o que fazer) e dados relevantes
+        É enviado e recebido em formato binário
+
+        Dados são organizados em 4 diferentes tabelas: (ver slide)
+            TABELA               TAMANHO DE CADA DADO       OPERAÇÃO PERMITIDA          FAIXA DE ENDEREÇOS*
+            Bobina                  1 bit (on/off)           Leitura/e Escrita            00001- 09999
+                                  (valores discretos)
+
+        Entradas Discretas         1 bit (on/off)              Apenas Leitura             10001 - 19999
+
+        Registradores de Entrada        16 bits 
+                                  (valores numéricos)
+
+        Registradores de Saída
+
+
+        CÓDIGOS DAS PRINCIPAIS FUNÇÕES
+        
+        Código          Ação        Tabela
+        01 (01 hex)  -> Leitura -> Bobinas
+        02 (02 hex) -> Leitura -> Entradas Discretas
+        ......
+
+
+        o Módulo PyModbus implementa toda a pilha do protocolo MODBUS e disponibiliza métodos simples
+
+        pip install pymodbus, pymodbustcp
+
+
+EXERCICIO
+
+    pegar uma variavel de holding (16bits) onde cada bit dessa variavel corresponde a um estado de um atuador diferente
+    transformar essa variavel em uma lista de booleanos que corresponde a True ou False p/ cada atuador
+
+    e tbm
+
+    manipular floats
+    usar 2 variaveis de holding (16bits) p/ armazenar um float (32bits)
+    '32.4' p/ float gasta 32bits
+    big engine -> mais significativo antes
+    little engine -> mais significativo depois
+
+    mudaremos apenas o clienteModBus, inseriremos mais 2 opções para leitura de dados e escrita de dados
+    1 opção: float
+    2 opção: multiplos bits
