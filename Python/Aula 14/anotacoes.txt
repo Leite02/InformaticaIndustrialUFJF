@@ -1,0 +1,50 @@
+Desenvolvimento de GUIs (interfaces gráficas)
+
+    P/ desenvolver interfaces gráficas devem ser utiizados 'frameworks' e bibliotecas
+    que já possuem funcionalidades implementadas e reduzem mt o tempo de Desenvolvimento
+
+    Framework -> PyQT, TkInter, wxPython, Kivy(utilizaremos esse), etc...
+        Dá um conjunto de componentes prontos p/ podemos utilizar prontos
+        Escolhemos o kivy por ser multiplataforma, licensa de software MIT, entre outros
+
+    Kivy
+        Possui conjunto extenso de widgets como botões, labels, telas, etc...
+        Suporta aceleração de GPU (uso da placa de vídeo)
+
+        PROGRAMAÇÃO:
+        INSTALAR KIVY CRIANDO NOVO ENV E FAZENDO pip install kivy[full]
+
+        Teremos sempre um objeto base App(gera uma janela), terá atributos e métodos
+        atributos: tamanho, cor de fundo, etc...
+        métodos: maximizar, minimizar, fechar, etc...
+
+        Teremos o wiget root(raiz) da janela: Layout
+            dentro do layout adicionamos os outros widgets
+
+        Kivy tem tbm a sua linguagem, que permite uma construção da interface gráfica mais direta
+        exemplo está no BasicApp. Exemplo da construção usando o python ta no KivyBasico
+
+        coments arquivo .kv:
+             #defina orientação do MyWidget
+             #cria um botao no MyWidget
+             #com id btn
+             #texto 'Incrementar'
+             #define cor de fundo
+             #o que fazer no evento on_press (método changelb do root)
+             #palavra chave root chama objeto raiz MyWidget e .changelb chama método desse objeto 
+             #cria um label  
+             #com id lb
+             #com texto '0'
+             #cria um BoxLayout dentro do MyWidget
+             #id é bxa
+             #cria um botão dentro do bxa
+              #com id bt_limpar
+              #com texto 'Limpar'
+              #executa no evento on_press: muda o texto do label lb para '0'
+              #cria um label dentro do bxa
+              #com id lb_2
+              #com texto 'Label2'
+
+        
+
+
