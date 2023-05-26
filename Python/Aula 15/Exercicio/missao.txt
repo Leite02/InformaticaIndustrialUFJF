@@ -1,0 +1,11 @@
+Crie um aplicativo kivy que permita buscar e exibir os dados de um servidor MODBUS
+
+    Inclua um menu de configuração p/ que o usuario possa digitar o IP e a porta do servidor. Este menu deverá
+    contar com um botão conectar
+
+    Inclua um layout contendo um Label para exibição do resultado da leitura, um textinput para que o usuário 
+    digite o endereço a ser buscado e 4 botões para que o usuário selecione o tipo de dado (bobina, entrada discreta
+    registrador de entrada ou registrador de saída (holding))
+
+    Adicione uma checkbox que permita ao usuário selecionar se a leitura será contínua ou se será realizada apenas
+    uma vez. Caso a leitura seja contínua, utilizar o objeto Clock

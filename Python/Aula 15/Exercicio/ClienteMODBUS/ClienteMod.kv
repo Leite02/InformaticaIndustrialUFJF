@@ -1,0 +1,53 @@
+#:kivy 1.11.1
+<MyWidget>:
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: mostra_leitura
+                text: "Leitura"
+                font_size: 45
+                canvas.before:
+                    Color:
+                        rgba: 0,0,1,1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            BoxLayout:
+                orientation:'vertical' 
+                TextInput:
+                    id: endereco
+                    hint_text:"Digite o endereço a ser lido"
+                Label:
+                    id: label_checkbox
+                    text:'Checkbox'
+                CheckBox:
+                    id: checkbox
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: (1,0.4)
+            Button:
+                text:'Ler Holding Register'
+            Button:
+                text:'Ler Coil'
+            Button:
+                text: 'Ler entrada discreta'
+            Button:
+                text: 'Ler Registrador Entrada'
+
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: (1,0.1)
+            TextInput:
+                id: ip
+                hint_text: "Digite o ip do servidor"
+            TextInput:
+                id: port
+                hint_text: "Digite a porta do servidor"
+            Button:
+                text: 'Conectar'
+
+
+
+

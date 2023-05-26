@@ -1,0 +1,57 @@
+Tamanho e posicionamento de Widgets
+    Dentro de alguns layouts, o tamanho e posicionamento pode ser alterado com as propriedades
+    size_hint e pos_hint
+
+    size_hint: é uma tupla de valores usada por layouts p/ gerenciar os tamanhos de seus widgets filhos.
+               Esta propriedade o tamanho relativo ao tamanho do layout em vez de um tamanho absoluto(em pixels/cm,etc)
+               O formato é:
+                widget.size_hint = (width_proportion,height_proportion)
+
+    pos_hint: propriedade do tipo dicionario usada para modificar a posição relativa de um widget dentro do layout pai
+              O formato é:
+                widget.pos_hint = {'x': 0 ,'y': 0} (adiciona em proporção também)
+                ao inves de 'x' e 'y' podemos adicionar as outras chaves abaixo
+                (cuidado, algumas delas podem se sobrepor/ dar confusão)
+                Chaves: - x: posição da coordenada x do canto inferior esquerdo
+                        - y: posição da coordenada y do canto inferior esquerdo
+                        - right: posição do lado direito do widget
+                        - top: posição do topo do widget
+                        - center_x: posição da coordenada x do centro do widget
+                        - center_y: posição da coordenada y do centro do widget 
+
+Mudando Caracteristicas da Janela (ver e mexer no BasicApp)
+    P/ alternar caracterisitcass daa jajnaela do aplicativo pode-se utilizar a classe Window
+        from kivy.core.window import Window
+
+    Pode-se alterar por exemplo o tamanho da janela e também se a exibição será em tela inteira:
+        Window.size = (800,600)
+        Window.fullscreen = True
+
+Módulo Clock (do kivy -> from kivy.clock import Clock // ver MovingBall)
+    O objeto Clock permite agendar uma chamada de função uma vez ou repetidamente em intervalos especificados.
+    Você pode obter o tempo decorrido entre o agendamento e a chamada da função por meio do argumento dt:
+
+    dt significa delta-tempo, podemos determinar:
+    def my_callback(dt):
+        pass
+
+    #invoca a função my_callback a cada 0,5 segundos
+    Clock.schedule_interval(my_callback,0.5)
+
+
+    O agendamento de tarefas pode ser realizado de maneira similar através de eventos.
+
+    #invoca a função my_callback a cada 0,5 segundos declarando um evento
+    event = Clock.schedule_interval(my_callback,0.5)
+    NÃO DEVEMOS COLOCAR FUNÇÕES PESADAS NO CLOCK (atrapalharia geração dos frames)
+
+    Pode-se cancelar o agendamento do evento utilizando o método cancel
+    event.cancel()
+
+NO MOVINGBALL
+    canvas: como se fosse uma tela, coloco coisas para ir alterando estilo do meu widget
+        Color: define a cor do widget
+        Ellipse: define o contorno do widget
+
+    Slider: Widget do tipo slider.
+        definimos id, minimo e maximo dele
