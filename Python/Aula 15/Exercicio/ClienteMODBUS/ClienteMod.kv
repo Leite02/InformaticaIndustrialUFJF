@@ -4,37 +4,71 @@
         orientation:'vertical'
         BoxLayout:
             orientation: 'horizontal'
-            Label:
-                id: mostra_leitura
-                text: "Leitura"
-                font_size: 45
-                canvas.before:
-                    Color:
-                        rgba: 0,0,1,1
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
             BoxLayout:
-                orientation:'vertical' 
+                orientation:'vertical'
+                size_hint: (0.6,1)
+                Label:
+                    id: titulo_leitura
+                    text: "Leitura solicitada"
+                    font_size: 45
+                    size_hint: (1,0.3)
+                    color: 0,0,0,1 
+                    canvas.before:
+                        Color:
+                            rgba: 140/250.0,1,1,1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    id:leitura
+                    text: "Leitura"
+                    font_size: 40
+                    canvas.before:
+                        Color:
+                            rgba: 0,101/255.0,151/255.0,1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: (0.4,1)
                 TextInput:
                     id: endereco
                     hint_text:"Digite o endereço a ser lido"
+                    size_hint: (1,0.235)
                 Label:
                     id: label_checkbox
-                    text:'Checkbox'
+                    text:'Marque o checkbox abaixo se quiser\n que a leitura seja contínua'
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'center'
+                    size_hint: (1,0.375)
+                    font_size: 22.5
+                    canvas.before:
+                        Color:
+                            rgba: 63/255.0,63/255.0,63/255.0,1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
                 CheckBox:
                     id: checkbox
+                    size_hint: (1,0.4)
         BoxLayout:
             orientation:'horizontal'
             size_hint: (1,0.4)
             Button:
                 text:'Ler Holding Register'
+                on_press: root.changeSelAddr('1',root.ids.endereco.text)
             Button:
                 text:'Ler Coil'
+                on_press: root.changeSelAddr('2',root.ids.endereco.text)
             Button:
                 text: 'Ler entrada discreta'
+                on_press: root.changeSelAddr('3',root.ids.endereco.text)
             Button:
                 text: 'Ler Registrador Entrada'
+                on_press: root.changeSelAddr('4',root.ids.endereco.text)
 
         BoxLayout:
             orientation:'horizontal'
@@ -47,6 +81,7 @@
                 hint_text: "Digite a porta do servidor"
             Button:
                 text: 'Conectar'
+                on_press: root.connect()
 
 
 

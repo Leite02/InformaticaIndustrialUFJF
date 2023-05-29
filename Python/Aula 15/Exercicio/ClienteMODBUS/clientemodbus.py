@@ -29,7 +29,6 @@ class ClienteMODBUS:
                 sel = input(
                     "Deseja realizar uma leitura, escrita ou configuração? (1- Leitura | 2- Escrita | 3- Configuração |4- Sair): "
                 )
-
                 if sel == "1":
                     tipo = input(
                         """Qual tipo de dado deseja ler? (1- Holding Register |2- Coil |3- Input Register |4- Discrete Input| 5 - Float | 6- Múltiplos bits) :"""
