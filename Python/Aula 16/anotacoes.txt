@@ -1,0 +1,152 @@
+Dados x Informação
+
+    -Dado: fato que pode ser gravado e que possui um significado
+
+    -Informação:
+
+    -Metadados: descrição e definição dos dados ("dados sobre os dados")
+                permitem efetuar a representação e identificação dos dados
+                São mantidos no catálogo do sistema (ou dicionário de dados)
+                Impactam no tamanho final do BD
+
+    -Sistemas de banco de dados:
+        Possibilitam dentre outras coisas:
+            Adição de novos arquivos no banco de dados
+            Inserção de novos dados nos arquivos existentes
+            Atualização de dados nos arquivos existentes
+            Eliminação
+
+    Usaremos os Sistemas de gerenciamento de banco de dados (SGBDs):
+        -É uma coletânea de programas que permite aos usuários criarem e manterem um banco de dados
+        -É um sistema de software que facilita os processos de definição, construção, manipulação e compartilhamento
+            de banco de dados entre varios usuários e aplicações
+        -Permite a proteção e persistência de um banco ao longo do tempo
+        -Promove diversas funcionalidades aos usuários e programadores
+        -Normalmente operam de acordo com a arquitetura Cliente/Servidor
+            Cliente (usuário) fará requisições p/ o SGBD fazer algo no banco de dados
+        Exemplos:
+            PostgreeSQL (mais avançado dos gratuitos, etc)
+            Microsoft SQL Sserver (pago)
+            IBM DB2 (pago)
+            Oracle (pago)
+            MySQL
+            SQLite (é o que usaremos)
+                Maior diferença entre eles: Tempo de consulta (desempenho, buscar dado rápido)
+
+Modelos de Banco de Dados
+
+    -Temos crescente no não relacional (noSQL) tbm.
+    
+    -Modelo relacional: mais comum nos SGBDs comerciais tradicionais
+        Representa o banco de dados como uma coleção de relações
+        Quando a relação é pensada em forma de uma tabela de valores, cada linha representa uma
+            coleção de valores relacionados
+
+        Exemplo: bancada 1 tem mesmo nome, ip e instrumento
+                 então criamos uma tabela das bancadas, cada uma com um valor de ref. por Exemplo
+                 e na tabela de medições, apenas falamos qual bancada é pelo valor de ref. da outra tabela
+        
+        As tabelas se comunicam entre si, para reduzir o numero de dados "na tabela principal"
+
+        no slide -> medid seria a chave primaria da primeira tabela, idbancada seria chave estrangeira da primeira tabela
+                    e idbancada seria a chave primaria da tabela bancadas
+
+    Componentes:
+        ver no slide
+
+
+    Linguagem SQL:
+        Structured Query Language é a linguagem padrão dos SGBD relacionais comerciais
+        Sintaxe simples, compreensivel, permitindo a operação e gerenciamento do SGBD
+            A partir da linguagem, criamos usuários, tabelas, inserimos e removemos dados e consultamos
+        
+        Sua utilização se daa aatraves de aplicativos clientes (ex. JetBrains, DataGrip, pgadmin) que tem
+            a capacidade de se conectar aos SGBDs e enviar os comandos ou através de ferramentas de linha
+            de comando ou gráficas
+
+        Oferece funções para DEFINIÇÃO (DDL), MANIPULAÇÃO (DML) e CONTROLE (DCL) dos dados de um Banco de dados
+
+        DDL:
+            CREATE: criação de novas estruturas
+            ALTER: alteração de esstruturas existentes
+            DROP: remoção de restrição
+
+        DML:
+            INSERT:
+            DELETE:
+            UPDATE:
+            SELECT:
+
+        DCL:
+            GRANT: da acesso
+            REVOKE: revoga acesso
+
+        Exemplo:
+        Criação de tbelas: CREATE TABLE
+            CREATE TABLE nome_tabela(
+                coluna1 tipo restrições,
+                coluna2 tipo restrições,
+                ....
+            );
+
+            Exemplo prático:
+                CREATE TABLE dataTable(
+                    id INTEGER PRIMARY KEY,    #coluna id tipo INTEGER e restrição falando que é a PRIMARY KEY
+                    timestamp TEXT NOT NULL,   #coluna timestamp tipo TEXT e restrição NOTNULL (não pode ser nulo)
+                    fornalha REAL,             #coluna fornalha tipo REAL sem restrição
+                    gasolina REAL
+                );
+
+        Ver outros exemplos de DML e DCL no slide (mas é bem basico, ingles basico da pra entender sabendo
+            oq as funções fazem internamente)
+
+        Exemplo SELECT (pega os dados):
+            SELECT coluna1,coluna2,coluna3 FROM nome_tabela WHERE condição;
+
+            Todas as colunas:
+            SELECT * FROM nome_tabela WHERE condição;
+
+            Exemplo tabela fornalha (pega dadods de todas as colunas entre os tempos determinados):
+                SELECT * FROM dataTable WHERE timestamp BETWEEN '2020-10-29 16:30:44' AND '2020-10-29 16:30:44'
+
+        Exemplo UPDATE:
+            UPDATE nome_tabela
+            SET coluna1 = valor1,coluna2 = valor2,...
+            WHERE condição;
+
+            MUITO IMPORTANTE UTILIZAR O WHERE: se nao for incluida, as colunas de todos os registros serão alteradas.
+            NUNCA FAZER SEM O WHERE (mesmo para o delete)
+
+        Exemplo DELETE:
+            DELETE FROM nome_tabela
+            WHERE condição;            
+
+        Usaremos inicialmente um cliente online.
+
+    SQLite:
+        Tipos de dados:
+            NULL : tipo de dado nulo
+            INTEGER: valor inteiro
+            REAL: float
+            TEXT: string de texto que pode ser usada p/ armazenar estampas de tempo tbm
+            BLOB: Dados armazenados do modo que eles são enviados (podem ser usados para armazenar vídeos e imagens por ex.)
+
+        Exercicio:
+            Utilize o site sqliteonline.com p/ realizar algumas operações no banco de dados da pasta aqui
+
+            Questões:
+                Qual o valor da temperatura no dia 23/06/2022 às 10:17:33.553583 ?
+                    R: 443 (SELECT temperatura FROM modbusData WHERE timestamp='2022-06-23 10:17:33.553583')
+                Como foi a variação da umidade no dia 23/06/2022 de 10:17:20 às 10:17:40?
+                    R: 26-28 = -2 (SELECT umidade FROM modbusData WHERE timestamp BETWEEN datas)
+
+            Insira um registro com os seguintes dados:
+                Temperatura: 420
+                Pressão: 40000
+                Umidade: 65
+                Timestamp: atual
+
+            Atualize a pressão do registro realizado no dia 23/06/2022 às 10:22:10.113493 para 47500
+
+            Delete o registro que você inseriu
+    
