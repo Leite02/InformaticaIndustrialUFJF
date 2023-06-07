@@ -1,5 +1,6 @@
 from modbuspersistencia import ModbusPersistencia
 
+#dicionário com dados a serem utilizados
 tags_addrs = {
     'temperatura': 1000,
     'pressao': 1001,

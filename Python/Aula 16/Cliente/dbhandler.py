@@ -6,11 +6,11 @@ class DBHandler():
         """
         Classe para manipulação do banco de dados
         """
-        self._con = sqlite3.connect(dbpath, check_same_thread=False)
-        self._cursor = self._con.cursor()
-        self._lock = Lock()
+        self._con = sqlite3.connect(dbpath, check_same_thread=False) #conecta com o arquivo de banco de dados e cria objeto con
+        self._cursor = self._con.cursor() #cria objeto cursor
+        self._lock = Lock() #cria objeto Lock (uma thread faz inserção, outra busca, para n ter conflito permite que tenham proteção contra corrupção de daods)
         self._tablename = tablename
-        self.create_table(tablename,tag_names)
+        self.create_table(tablename,tag_names) #cria uma tabela p/ armazenamento de dados
         
     def __del__(self):
         """
@@ -24,12 +24,14 @@ class DBHandler():
         não exista no arquivo
         """
         try:
-            sql_real_cols = ' REAL,'.join(tag_names)
+            sql_real_cols = ' REAL,'.join(tag_names) # junta oq ta no tag_names, juntando entre elas com o REAL,
+                                                     # ex: temperatura REAL,pressao REAL,umidade REAL,consumo
+            #cria string de comando (cria tabela se nao existir ainda(nometabela) resto dos comandos) passa o real no final pq faltou por conta do join
             sql_str = f"""
             CREATE TABLE IF NOT EXISTS {tablename}(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
             timestamp TEXT NOT NULL, {sql_real_cols} REAL);
             """
-            self._lock.acquire()
+            self._lock.acquire()           
             self._cursor.execute(sql_str)
             self._con.commit()
             self._lock.release()
