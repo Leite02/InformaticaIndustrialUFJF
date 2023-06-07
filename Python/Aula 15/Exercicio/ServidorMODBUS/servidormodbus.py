@@ -30,7 +30,7 @@ class ServidorMODBUS():
                 print(f'Holding Register \r\n R1000: {self._db.get_holding_registers(1000)} \r\n R2000: {self._db.get_holding_registers(2000)}') #le valores do holding nos endereços 1000 e 2000
                 print(f'Coil \r\n R1000: {self._db.get_coils(1000)}') #le valor de Coil no endereço 1000
                 #podemos ter dado no msm endereço, se forem diferentes, estarão em tabelas diferentes, entao ok
-                sleep(5)
+                sleep(0.5)
         except Exception as e:
             print("Erro: ",e.args)
 

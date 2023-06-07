@@ -5,6 +5,7 @@ from kivy.clock import Clock
 from kivy.uix.textinput import TextInput
 from kivy.uix.checkbox import CheckBox
 from pyModbusTCP.client import ModbusClient
+from threading import Thread
 
 
 class MyWidget(BoxLayout):  # é o raiz da aplicação
@@ -12,7 +13,7 @@ class MyWidget(BoxLayout):  # é o raiz da aplicação
         ip_server = self.ids.ip.text
         port_server = int(self.ids.port.text)
         self._cliente = ModbusClient(host=ip_server, port=port_server)
-        self._scan_time = 1.0 / 30.0
+        self._scan_time = 1
         self._cliente.open()
         self.ids.leitura.text = "Conexão estabelecida"
 
@@ -20,12 +21,13 @@ class MyWidget(BoxLayout):  # é o raiz da aplicação
         self._sel = text
         self._addr = int(address)
         if self.ids.checkbox.active:
-            self._ev = Clock.schedule_interval(self.atendimentoRepeat, 1.0 / 60.0) #ver na aula como melhorar o lag com multithreading
+            self._ev = Clock.schedule_interval(
+                self.atendimentoRepeat, self._scan_time
+            )  # ver na aula como melhorar o lag com multithreading
         else:
-            self.atendimento()
+            self._ev = Clock.schedule_once(self.atendimentoRepeat)
 
     def atendimentoRepeat(self, dt):
-        self._cliente.open()
         try:
             if self._sel == "1":
                 self.ids.leitura.text = str(
@@ -34,35 +36,6 @@ class MyWidget(BoxLayout):  # é o raiz da aplicação
 
             elif self._sel == "2":
                 self.ids.leitura.text = str(self._cliente.read_coils(self._addr, 1)[0])
-
-            elif self._sel == "3":
-                self.ids.leitura.text = str(
-                    self._cliente.read_discrete_inputs(self._addr, 1)[0]
-                )
-
-            elif self._sel == "4":
-                self.ids.leitura.text = str(
-                    self._cliente.read_input_registers(self._addr, 1)[0]
-                )
-
-            if not self.ids.checkbox.active:
-                self._ev.cancel()
-
-        except Exception as e:
-            print("Erro no atendimento: ", e.args)
-
-    def atendimento(self):
-        self._cliente.open()
-        try:
-            if self._sel == "1":
-                self.ids.leitura.text = str(
-                    self._cliente.read_holding_registers(self._addr, 1)[0]
-                )
-
-            elif self._sel == "2":
-                self.ids.leitura.text = str(
-                    self._cliente.read_coils(self._addr, 1)[0]
-                )
 
             elif self._sel == "3":
                 self.ids.leitura.text = str(
