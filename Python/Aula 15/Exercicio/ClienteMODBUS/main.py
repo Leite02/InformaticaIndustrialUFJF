@@ -6,6 +6,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.checkbox import CheckBox
 from pyModbusTCP.client import ModbusClient
 from threading import Thread
+from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
+from pymodbus.constants import Endian
 
 
 class MyWidget(BoxLayout):  # é o raiz da aplicação
@@ -35,12 +37,14 @@ class MyWidget(BoxLayout):  # é o raiz da aplicação
                 )
 
             elif self._sel == "2":
-                self.ids.leitura.text = str(self._cliente.read_coils(self._addr, 1)[0])
+                leitura = self._cliente.read_holding_registers(self._addr,2)
+                decoder = BinaryPayloadDecoder.fromRegisters(leitura,byteorder=Endian.Big,wordorder=Endian.Big)
+                self.ids.leitura.text = str(decoder.decode_32bit_float())
 
             elif self._sel == "3":
-                self.ids.leitura.text = str(
-                    self._cliente.read_discrete_inputs(self._addr, 1)[0]
-                )
+                leitura = self._cliente.read_holding_registers(self._addr,1)[0]
+                lista_bits = [int(x) for x in '{0:016b}'.format(leitura)]
+                self.ids.leitura.text = str(lista_bits)
 
             elif self._sel == "4":
                 self.ids.leitura.text = str(
