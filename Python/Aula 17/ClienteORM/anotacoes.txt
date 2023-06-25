@@ -1,0 +1,51 @@
+Anotações última aula sobre ORM
+
+    ORM -> Mapeamento objeto-relacional
+    É uma técnica de programação que permite criar um mapeamento entre objetos de um determinado programa
+        com o modelo relacional de uma tabela de um banco de dados
+    
+    Com o ORM, as tabelas são representadas por classes e cada um dos registros são objetos
+
+    Permite que a interação com o banco de dados seja feito utilizando apenas a linguagem python
+
+    Exemplo:
+        Uma tabela representa os dados do clp (timestamp,umidadade,temp,etc...)
+        Criamos uma classe DadoCLP com os atributos sendo os dados que queremos guardar_dados
+        E aí, com o ORM, cada registro na tabela será um objeto da classe DadoCLP
+        Por ex: Dado1, Dado2, etc....
+
+        para inserir, iremos apenas inserir o objeto.
+            d1 = DadoCLP('2020-07-14 15:27:35', 435, 100841,20,28)
+            session.add(d1)
+    
+    Uso da biblioteca SQLAlchemy: 
+        Core(núcleo): implementa a camada de abstração que permite interação com o SGBD
+        ORM: implementa o mapeamento objeto-relacional, disponibilizando uma hierarquia de classes
+
+        Primeiro passo é criar uma engine, ela que possibilita a comunicação com o SGBD
+
+            from sqlalchemy import create_engine
+            engine = create_engine('sqlite://:memory', echo = True)
+
+            #Na string passada manda o caminho da engine a ser usada 
+            #url tipica: dialect+driver://username:password@host:port/database
+
+        Para realizar operações no BD, pode-se utilizar o comando 'execute' através de uma 'connection'
+        ou ainda uma 'session' que é a forma utilizada pelo ORM.
+
+            engine.execute('SELECT * FROM DadoCLP')
+            ou
+            connection = engine.connect()
+            connection.execute('SELECT * FROM DadoCLP')
+            ou
+            from sqlalchemy.orm import sessionmaker
+            Session = sessionmaker(bind = engine)
+            session = Session()
+        
+        Para criar uma tabela, são necessários:
+            Base (como se fosse a raiz), a tabela parte da base
+
+
+
+        
+

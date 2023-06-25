@@ -34,15 +34,19 @@ class ModbusPersistencia(object):
             data = {}
             while True:
                 data['timestamp'] = datetime.now()
+                #leio os dados do servidor modbus e guardo no data
                 for tag in self._tags_addrs:
                     data[tag]= self._cliente.read_holding_registers(self._tags_addrs[tag], 1)[0]
                 
+            #o ** é um dict unpacking, o 'data' é um dicionario c 5 chaves, o que o dict unpacking faz é:
+            # DadoCLP(timestamp=data['timestamp'],temperatura=data['temperatura],......)
+            #pega o dicionário e abre ele, no nosso caso já passando como parametros
             
-                dado = DadoCLP(**data)
-                self._lock.acquire()
-                self._session.add(dado)
-                self._session.commit()
-                self._lock.release()
+                dado = DadoCLP(**data) #crio objeto dado a partir da classe DadoCLP que possui os dados da leitura
+                self._lock.acquire() #acquire do Lock
+                self._session.add(dado) #adiciona na sessão, para ser mudada na tabela
+                self._session.commit() #comita as mudanças adicionas na sessão p/ realmente mudar
+                self._lock.release() #solta o Lock
                 sleep(self._scan_time)
 
         except Exception as e:
@@ -55,15 +59,15 @@ class ModbusPersistencia(object):
         try:
             print("Bem vindo ao sistema de busca de dados históricos")
             while True:
-                init = input("Digite o horário inicial para a busca (DD/MM/AAAA HH:MM:SS):")
-                final = input("Digite o horário final para a busca (DD/MM/AAAA HH:MM:SS):")
-                init = datetime.strptime(init, '%d/%m/%Y %H:%M:%S')
-                final = datetime.strptime(final, '%d/%m/%Y %H:%M:%S')
-                self._lock.acquire()
-                results = self._session.query(DadoCLP).filter(DadoCLP.timestamp.between(init,final)).all()
-                self._lock.release()
-                results_fmt_lst = [reg.get_attr_printable_list() for reg in results]
-                print(tabulate(results_fmt_lst,headers=DadoCLP.__table__.columns.keys()))
+                init = input("Digite o horário inicial para a busca (DD/MM/AAAA HH:MM:SS):") #pega hora inicial
+                final = input("Digite o horário final para a busca (DD/MM/AAAA HH:MM:SS):") #pega hora final
+                init = datetime.strptime(init, '%d/%m/%Y %H:%M:%S') #formata o init
+                final = datetime.strptime(final, '%d/%m/%Y %H:%M:%S') #formata o final
+                self._lock.acquire() #bloqueia o Lock
+                results = self._session.query(DadoCLP).filter(DadoCLP.timestamp.between(init,final)).all() #lê dados da tabela a partir do init e final estabelecidos
+                self._lock.release() #libera o lock
+                results_fmt_lst = [reg.get_attr_printable_list() for reg in results] #formata os dados p/printar
+                print(tabulate(results_fmt_lst,headers=DadoCLP.__table__.columns.keys())) #printa na tela
         except Exception as e:
             print("Erro: ", e.args)
 
