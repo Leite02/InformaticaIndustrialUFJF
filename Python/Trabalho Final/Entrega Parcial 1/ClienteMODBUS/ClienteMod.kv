@@ -1,0 +1,292 @@
+#:kivy 1.11.1
+<MyWidget>:
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint:(1,0.3)
+                Label:
+                    id: titulo_conectado
+                    text: "Não conectado"
+                    font_size: 45
+                    size_hint: (0.6,1)
+                    color: 0,0,0,1 
+                    canvas.before:
+                        Color:
+                            rgba: 140/250.0,1,1,1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            BoxLayout:
+                orientation: 'vertical'
+                id: box_leituras
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1,0.15)
+                    Label:
+                        id:title_leituraUm
+                        text: "Valvula 1"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraDois
+                        text: "Valvula 2"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraTres
+                        text: "Valvula 3"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraQuatro
+                        text: "Valvula 4"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraCinco
+                        text: "Valvula 5"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraSeis
+                        text: "Valvula 6"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1,0.35)
+                    Label:
+                        id:leituraUm
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraDois
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraTres
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraQuatro
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraCinco
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraSeis
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1,0.15)
+                    Label:
+                        id:title_leituraSete
+                        text: "PIT-01"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraOito
+                        text: "FIT-02"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraNove
+                        text: "FIT-03"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraDez
+                        text: "Torque Motor"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraOnze
+                        text: "Vel. Motor"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:title_leituraDoze
+                        text: "Corrente Média Motor"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,101/255.0,151/255.0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1,0.35)
+                    Label:
+                        id:leituraSete
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraOito
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraNove
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraDez
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraOnze
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id:leituraDoze
+                        text: "- -"
+                        font_size: 20
+                        canvas.before:
+                            Color:
+                                rgba: 0,0,0,1
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint: (1,0.1)
+            TextInput:
+                id: ip
+                hint_text: "Digite o ip do servidor"
+            TextInput:
+                id: port
+                hint_text: "Digite a porta do servidor"
+            Button:
+                text: 'Conectar'
+                on_press: root.connect()
+
+
+
+
