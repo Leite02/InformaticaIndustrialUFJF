@@ -133,3 +133,6 @@ for parametro, info_parametro in dicionarioInversor.items():
         print(topicos, ":", info_topicos)
         print('')
     print('')
+
+
+#teste p/ mostrar gabriel
