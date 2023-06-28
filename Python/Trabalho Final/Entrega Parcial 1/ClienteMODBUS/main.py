@@ -27,9 +27,8 @@ class MyWidget(BoxLayout):  # é o raiz da aplicação
 
     def leDadoFP(self, addr):
         leitura_cod = self._cliente.read_holding_registers(addr, 2)
-        decoder = BinaryPayloadDecoder.fromRegisters(
-            leitura_cod, byteorder=Endian.Big, wordorder=Endian.Big
-        )
+        #byteorder BIG wordorder LITTLE
+        decoder = BinaryPayloadDecoder.fromRegisters(leitura_cod, byteorder=Endian.Big, wordorder=Endian.Little)
         leitura_FP = str(round(decoder.decode_32bit_float(), 2))
         return leitura_FP
 
