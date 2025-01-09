@@ -1,0 +1,21 @@
+
+Ele usa a extensão DRACULA para modificar as cores das letras
+
+Terminal -> powershel e CMD
+    Por padrão usa-se o POWERSHELL que é mais seguro e restritivo. Para maior liberdade pode-se mudar em um programa
+    ou de forma geral. Para mudar de forma geral, abrir o terminal e na parte superior direita mudar 
+    em Select Default Profile e usar CMD
+
+Ambiente virtual:
+
+    ->como instalar ?
+        no terminal, digitar: python -m venv .env (.nomecriado)
+    
+    ->Por que usar?
+        Utilizar bibliotecas com versões especificas sempre. Assim quando outro usuario for olhar, já terá uma pasta
+        indicando quais as versões são usadas.
+
+Como programar (sintaxe):
+    -> olhar sintaxe da pasta "Colecoes_e_Loops"
+    
+

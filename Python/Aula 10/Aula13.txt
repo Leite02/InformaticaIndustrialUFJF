@@ -1,0 +1,99 @@
+
+VARIAVEIS
+
+    Em python, todos os dados são objetos, inclusive os mais simples como inteiros, booleanos, etc.
+
+    OBJETOS MUTAVEIS
+    -Objetos cujo valores podem ser modificados. Ex: listas, dicionarios, objetos definidos pelo usuario.
+    -Quando atribuimos valores novos, valor anterior vira lixo de memoria, novo é atribuido
+        O Garbage Collector vai e identifica esse lixo e deleta, no c++ iriamos ter que dar delete
+
+    exemplo:
+        x = [0,1,2,3]
+        y = x
+        y[2] = 8 #alteria o valor para o x e p/ o y. Pois listas são mutáveis.
+        "parecido com passagem por referencia"
+
+    OBJETOS IMUTAVEIS
+    -Objeto cujos valores não podem ser modificados. Ex: Números, tuplas, booleanos, strings.
+        
+
+FUNÇÕES (sub-rotinas)
+    Em python, utiliza-se o conceito de passagem por atribuição ou por referência de objeto
+
+    Quando objeto passado como argumento é imutavel: 
+    uma mudança da variavel dentro da função NÃO PROVOCARÁ uma mudança na variavel do metodo que a invocou
+
+    Quando objeto passado como argumento é mutavel: 
+    uma mudança da variavel dentro da função PROVOCARÁ uma mudança na variavel do metodo que a invocou
+
+    Sintaxe:
+        def nome(arg1,arg2....):
+            """
+            docstring(opcional) -->documentação
+            ""
+            expressões
+            return valor (opcional)
+
+    exemplo: 
+        def func(a):
+            a=10
+        var=20
+        func(var)  --> o mesmo que a=var; no final tem-se a=10 e var=20, pois são imutáveis. se var fosse lista e tivesse a.append iria mudar em lista e em a
+
+CRIAÇÃO DE MÓDULOS
+    Módulos são arquivoss que possuem um conjunto de declarações e definições
+
+    O nome do módulo é o nome do arquivo sem o '.py'
+
+    Exemplo:
+        Nome do arquivo: minhalib.py
+        Nome do módulo: minhalib
+
+    Importar modulo todo: import modulo
+    Importar somente func1 e var1: from modulo import func1 var1
+
+    Para executar um módulo como script (usar direto, sem ter que ter um arquivo para importar), deve-se incluir:
+        if __name__== "__main__":
+            expressões
+    Tudo que etiver declarado dentro do bloco if não será executado no import, 
+    mas somente quando o módulo for executado como script principal 
+    
+CLASSES
+
+    Conceito é o mesmo que em outras linguagens, as classes são utilizadas de modelos
+    para a criação de objetos
+
+    class NomedaClasse:
+        def __init__(self,arg1,arg2): #self é o "this" do c++, precisa ser passado o 'self' como parametro
+            self.attr1 = arg1
+            self.attr2 = arg2
+        def metodo(self):
+            expressoes
+
+    Especificadores de acesso:
+    - "__" (2x underscore) para atributos e metodos PRIVADOS
+    - "_" (1x underscore) para atributos e métodos PROTEGIDOS
+
+    Acesso aos atributos e métodos do objeto
+    - O acesso aos atributos e métodos dentro das funções-membro pode ser feito pela
+        palavra-chave "self" (análoga ao ponteiro this do c++)
+
+    Construtor:
+        método especial chamado __init__()
+        é invocado automaticamente quando o objeto é instanciado
+
+    Destrutor:
+        Pode ser definido utilizando o método __del()__ mas dificilmente é utilizado
+        já que o python usa garbage collector
+
+HERANÇA:
+    Conceito é o mesmo que em outras linguagens
+
+    Para realizar a herança basta na definição da nova classe utilizara o nome da classe base entre parenteses:
+        class NovaClasse(ClasseBase):
+    
+    Métodos da classe base podem ser sobescritos na classe derivada (polimorfismo automatico)
+
+    usamos o super() para referir ao metodo da base
+    
