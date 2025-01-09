@@ -94,6 +94,7 @@ HERANÇA:
         class NovaClasse(ClasseBase):
     
     Métodos da classe base podem ser sobescritos na classe derivada (polimorfismo automatico)
-
     usamos o super() para referir ao metodo da base
+
+    Diferença C++: No python por padrão já vai ter polimorfismo em tudo. Caso não queira, usar o super().
     
