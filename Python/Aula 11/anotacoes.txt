@@ -1,9 +1,11 @@
 SISTEMAS DISTRIBUÍDOS
     Redes
-        Para possibilitar a comunicação entre sistemas heterogêneos foi criado o modelo OSI/ISO (protocolos podem usar tais cab.)
-            Cabeçalho da camada de enlace - cab da camada de rede - cab da camada de transporte - cab. da camada de sessão - cab. da camada de apresentação - cab. da camada de aplicação - mensagem - trailer da amada de enlace
+        Para possibilitar a comunicação entre sistemas heterogêneos foi criado o modelo OSI/ISO.
+            Cabeçalho da camada de enlace - cab da camada de rede - cab da camada de transporte - 
+            -cab. da camada de sessão - cab. da camada de apresentação - cab. da camada de aplicação - 
+            mensagem - trailer da camada de enlace
             Todos esss bits são os que realmente aparecem na rede, gastamos mt bits de info extra
-
+    Pilha TCP/IP    
             Transformamos o modelo de 7 camadas para uma pilha de protocolos TCP/IP
                 Aplicação/Representação/Sessão
                 transporte
@@ -23,7 +25,8 @@ SISTEMAS DISTRIBUÍDOS
 
     Cliente-Servidor
         -Servidor: É um processo que implementa um serviço específico
-        -Cliente: É rocesso que requisita um serviço de um servidor enviando-lhe uma requisição e esperando pela resposta do servidor
+        -Cliente: É processo que requisita um serviço de um servidor enviando-lhe uma requisição e 
+        esperando pela resposta do servidor
             Cliente requisita e espera... Servidor processa e fornece serviço com resposta e envia pro cliente
         
         Cloud Computing: Servidores cloud viraram o comum, ter um servidor hospedado na nuvem
@@ -46,25 +49,69 @@ SISTEMAS DISTRIBUÍDOS
                     até a porta 1024 elas são padrões para certos tipos de comunicação
                     via de regra: usar acima de 5000
                     
-                    (ver fluxograma no slide da api socket)
+                    (ver fluxograma no slide da api socket) -> ||| TEM Q SABER, CAI EM PROVA |||
                     Servidor:
                                                              |<-----|
                         socket-> bind-> listen-> accept-> read-> write-> close
-                                                  pt de sinc
+                                                 |            ^     \
+                                                 |pt de sinc   \     \
+                    Cliente:                     |              \     v
+                        socket ----------------> connect -> write -> read -> close 
+                                                             |<-----|
+                
+                    Socket : criação de objeto da classe socket que permite comunicação entre cliente servidor
+                    Bind(anexado,traduzindo) : método que fornece serviços de uma porta pra outra. Define ip e porta
+                        possivel erro: fornecer serviço para uma porta que já está em uso
+                    Listen : primitiva, método que permite o servidor escuta conexões de cliente( verifica serviço e porta)
+                        se não executar --> verifica que não há conexão e fecha.
+                    Accept: servidor vai na fila e busca o primeiro clinte que tentou se conectar
+                        a partir disso, já há conexão entre clientes e servidores e é possível trafegar dados.
+                    Read/Write : loop para dados 
+                    Close: fecha conexão e libera porta para executar outros serviços.
+                     
+        loopback placa de rede-> cliente e servidor no mesmo PC 
+           Endereço: 127.0.0.1 ou 'localhost'
+           serviço DNS-> converte nome 'localhost' em n° 127.0.0.1 ( serve para tudo_ ex: "www.google.com" converte)
 
-                    Cliente:
-                        socket ---------------> connect -> write -> read -> close 
+    No python, Módulo socket:
+                
+        Possibilita o acesso à interface socket do sistema operacional de maneira facilitada
 
+        Possui métodos que facilitam a implementação de todo o procedimento de comunicação 
+        entre cliente e servidor
 
-            No python, Módulo socket:
-                Possibilita o acesso à interface socket do sistema operacional de maneira facilitada
+        Possibilita a utilização de TCP(orientado à conexão - mais confiavel - 
+        mais pixels mas garanto que chega) ou UDP (menor overhead)
+            UDP-> menos pixels mas não garanto que chega 
 
-                Possui métodos que facilitam a implementação de todo o procedimento de comunicação entre cliente e servidor
+    Exceções:
+        Exceções são utilizadas para contornar erros e condições excepcionais que podem ocorrer durante a execução
+        do programa e não podem ser previstas durante a fase de codificação.
 
-                Possibilita a utilização de TCP(orientado à conexão - mais confiavel - mais pixels mas garanto que chega) ou UDP (menor overhead)
-                    UDP-> menos pixels mas não garanto que chega 
-            
-            
+        Python, pode-se tratar as exceções utilizando um bloco try-except:
+            -try: encapsula código que pode gerar exceções;
+            -except: bloco utilizado para capturar e lidar com as exceções. Só é executado se uma 
+                     exceção for gerada dentro do bloco try. Pode haver diversas except num bloco try.
+
+            Exemplo: Se rodar o código sem o try, da erro e encerra programa. Com o try, continua o programa.
+
+            try:
+                # Código que pode gerar uma exceção
+                x = 10 / 0
+            except ZeroDivisionError:
+                # Código para lidar com a exceção
+                print("Erro: divisão por zero") 
+            except Exception as e:
+                # Código para lidar com qualquer outra exceção
+                print("Exceção genérica. Erro: ",e.args)
+        
+        Há diversas exceções no python, dentre elas:(são classes) 
+            -ZeroDivisionError          -IndexError
+            -TypeError                  -AttributeError
+            -ValueError                 
+
+        O programador pode ainda criar exceções próprias usando o recurso de Herança da classe Exception 
+        e a palavra-chave raise;    A palavra 'raise' leva para o exception no código
 
 
 

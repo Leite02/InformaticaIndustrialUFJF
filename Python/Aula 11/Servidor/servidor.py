@@ -10,16 +10,16 @@ class Servidor():
         """
         Construtor da classe servidor
         """
-        self._host = host
-        self._port = port
-    
+        self._host = host                                                #cria objeto da classe socket, atribuo ao __tcp
+        self._port = port                                                #construtor tem parametros (faixa de clientes que podem se conectar, permite escolher qual camada de transporte quer )
+        self.__tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   #AF_INET -> cte da classe que permite qq um conectar ; Protocolo usado: UDP(socket.SOCKET_DGRAM) ou TCP (socket.SOCKET_STREAM)
+           
+         
+
     def start(self): #normalmente não mexemos no start e no construtor, só no service, o resto é padrão
         """
         Método que inicializa a execução do servidor
         """
-        self.__tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #cria objeto da classe socket, atribuo ao __tcp
-                                                                       #construtor tem parametros (faixa de clientes que podem se conectar, permite escolher qual camada de transporte quer )
-                                                                       #AF_INET -> cte da classe que permite qq um conectar ; UDP(socket.SOCKET_DGRAM) ou TCP (socket.SOCKET_STREAM)
         endpoint = (self._host,self._port) #cria endpoint como tupla (imutavel) do servidor (ip,porta) , localiza a aplicação dentro do sistema distribuído
         try:                               #try e except : se acontecer algo de errado no try, execute o except 
             self.__tcp.bind(endpoint)      #vincula o socket ao endpoint (bind)
@@ -37,7 +37,7 @@ class Servidor():
     def _service(self, con, client):       #método do serviço
         """
         Método que implementa o serviço de calculadora
-        :param con: objeto socket utilizado para enviar e receber dados
+        :param con: objeto socket utilizado para enviar e receber dados(vai ter ip e porta do cliente)
         :param client: é o endereço do cliente
         """
         print("Atendendo cliente ", client)
