@@ -11,7 +11,9 @@ SISTEMAS DISTRIBUÍDOS
                 transporte
                 Rede 
                 Física e de Enlace
-    
+
+            TCP é mais seguro e pesado que UDP: garante que o outro lado recebeu
+
     Padrões arquiteturais
         Existem várias arquiteturas p/ comunicação de dispositivos em sistemas distribuídos 
         - Cliente/Servidor !!!! (o que utilizaremos)
@@ -70,7 +72,7 @@ SISTEMAS DISTRIBUÍDOS
                     Close: fecha conexão e libera porta para executar outros serviços.
                      
         loopback placa de rede-> cliente e servidor no mesmo PC 
-           Endereço: 127.0.0.1 ou 'localhost'
+           Endereço: 127.0.0.1 ou 'localhost' -> endereço local da maquina
            serviço DNS-> converte nome 'localhost' em n° 127.0.0.1 ( serve para tudo_ ex: "www.google.com" converte)
 
     No python, Módulo socket:
@@ -113,7 +115,12 @@ SISTEMAS DISTRIBUÍDOS
         O programador pode ainda criar exceções próprias usando o recurso de Herança da classe Exception 
         e a palavra-chave raise;    A palavra 'raise' leva para o exception no código
 
-
-
-            
+    Conexão servidor/cliente
+        Servidor:
+            serviço
+                1- Recebe dados brutos(em bytes) do cliente (APDU:Application protocol data unit) (msg = con.recv(1024)) 
+                2- Decodificar a mensagem; para isso precisa conhecer o protocolo; (msg_s = str(msg.decode('ascii')))
+                3- Processar a requisição: (resp = eval(msg_s)) ->resp será um numero,por exemplo da soma 3+8+5
+                4- Codificar a resposta: (bytes(str(resp),'ascii'))
+                5- Enviar a resposta ao cliente: (con.send(bytes(str(resp),'ascii')))
 

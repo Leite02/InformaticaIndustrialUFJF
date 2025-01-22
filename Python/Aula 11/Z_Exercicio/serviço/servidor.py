@@ -1,5 +1,7 @@
 import socket
-
+import cv2
+import os
+import numpy as np
 
 
 class Servidor():
@@ -43,12 +45,37 @@ class Servidor():
         print("Atendendo cliente ", client)
         while True:
             try: 
-                msg = con.recv(1024)              #receive , COMANDO BLOQUEANTE fica travado até cliente mandar algo, recebe mensagem do cliente 1024 é tamanho do pacote que quero receber
-                msg_s = str(msg.decode('ascii'))  #decodifica mensagem que está em bytes para string, varia de acordo com protocolo de comunicação 
-                                                  #(no caso "5+3+8":caracteres que representa operaçao algebrica, que está no padrao da tabela ascii) 
+                tamanho_da_imagemrecebida_codificado = con.recv(1024) #receive , COMANDO BLOQUEANTE fica travado até cliente mandar algo, recebe mensagem do cliente 1024 é tamanho do pacote que quero receber
+                tamanho_da_imagemrecebida = int.from_bytes(tamanho_da_imagemrecebida_codificado,'big')
                 
-                resp = eval(msg_s)                #recebe string e executa no python "basicamente" (se manda print ele printa)
-                con.send(bytes(str(resp),'ascii')) #envia a resposta como bytes(codifica resposta para bytes de acordo com ascii)
+                img_recebida_bytes = con.recv(1024)
+                tamanho_recebido_codificado = len(img_recebida_bytes).to_bytes(4,'big')
+                tamanho_recebido = int.from_bytes(tamanho_recebido_codificado,'big')
+                while tamanho_recebido < tamanho_da_imagemrecebida:
+                    img_recebida_bytes += con.recv(1024)
+                    tamanho_recebido_codificado = len(img_recebida_bytes).to_bytes(4,'big')
+                    tamanho_recebido = int.from_bytes(tamanho_recebido_codificado,'big')
+                
+                img = cv2.imdecode(np.frombuffer(img_recebida_bytes, np.uint8), cv2.IMREAD_COLOR)
+
+                # processamento
+                xml_classificador = os.path.join(os.path.relpath(
+                    cv2.__file__).replace('__init__.py', ''), 'data\haarcascade_frontalface_default.xml')
+                face_cascade = cv2.CascadeClassifier(
+                    xml_classificador)
+                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+                # Desenha retângulos nas áreas onde as faces foram detectadas
+                for (x, y, w, h) in faces:
+                    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                
+                _, img_bytes = cv2.imencode('.jpg', img)
+                img_bytes = bytes(img_bytes)
+                tamanho_da_imagem_codificado = len(img_bytes).to_bytes(4, 'big')
+                con.send(tamanho_da_imagem_codificado)
+                con.send(img_bytes)
+                
+                print("Tamanho da imagem: ",tamanho_da_imagemrecebida)
                 print(client," -> requisição atendida") 
             except OSError as e:                  #caso erro de conexão com cliente
                 print("Erro de conexão ",client,": ",e.args)

@@ -11,6 +11,7 @@ _, img_bytes = cv2.imencode('.jpg', img)
 img_bytes = bytes(img_bytes)
 tamanho_da_imagem_codificado = len(img_bytes).to_bytes(4, 'big')
 print(tamanho_da_imagem_codificado)
+
 # decodificação
 tam = int.from_bytes(tamanho_da_imagem_codificado, 'big')
 img = cv2.imdecode(np.frombuffer(img_bytes, np.uint8), cv2.IMREAD_COLOR)
