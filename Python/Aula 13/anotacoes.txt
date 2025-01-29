@@ -1,6 +1,6 @@
 SOFTWARES SUPERVISÓRIOS
-    Utilizados p/ monitorar e supervisionar variáveis da planta
-    Conectam-se aos dispositivos através de interfaces de rede
+    Utilizados p/ monitorar e supervisionar variáveis da planta -> devem coletar dados
+    Conectam-se aos dispositivos através de interfaces de rede (por exemplo interface homem maquina(IHM))
     Permitem alterar o funcionamento de uma planta de maneira remota
     Otimizar o funcionamento em "tempo real"
     Devem possuir uma capacidade de representação gráfica da planta real
@@ -19,12 +19,26 @@ SOFTWARES SUPERVISÓRIOS
        Protocolos             IHM                Banco de Dados
         MODBUS              
 
+Exemplos:
+    SCADA BR        
+        -Licensa gratuita, web-based, varios drives de comunicação,só acesso a versões antigas
 
-MODBUS
-    3 variantes principais:
-    ASCII: mensagens codific
+    Elipse Scada(E3)
+        - Pago, mais comum no mercado BR, varios drivers
+
+    Simatic Win CC (siemens)
+        - pago.
+
+MODBUS  -- antigo 1979
+    -comunicação serial, protocolo aberto, comunicação entre dispositivos e troca de info entre CLPs e Supervisórios
     
-    RTU:
+    3 variantes principais:
+    ASCII: mensagens eram codificadas em caracteres ASCII -- usada camada fisica serial igual RTU
+        expemplo: '255'  gasta 24bits (8 bytes por caracter)
+    
+    RTU: implementação mais comum do protocolo. Utiliza codificação BINARIA para a transmissao de dados
+         e mecanismos de checagem de erros CRC
+        exemplo: 255 gasta 8 bits (2^8 - 1 = 255)
 
     TCP: implementação que utiliza a pilha TCP/IP para camadas inferiores (o que usamos)
         Classe A: utiliza a pilha TCP/IP padarão (a porta de comunicação utilizada normalmente é a 502)
@@ -33,28 +47,31 @@ MODBUS
         Normalmente, em campo teremos um SERVIDOR MODBUS, os dispositivos de campo (CLP, etc)
         E o computador é que se comunicará com esse servidor. Implementamos o cliente (software supervisório).
 
-        O protocolo MODBUS TCP é basicamente um protocolo da camada de aplicação, uma vez que utiliza a pilha TCP/IP padrão
-        (garante que chegou)
+        O protocolo MODBUS TCP é basicamente um protocolo da camada de aplicação, uma vez que utiliza a pilha TCP/IP 
+        padrão (garante que chegou)
 
         É um conjunto de "Function Code" com "Data"
         Cliente envia um codigo de função (o que fazer) e dados relevantes
         É enviado e recebido em formato binário
 
-        Dados são organizados em 4 diferentes tabelas: (ver slide)
-            TABELA               TAMANHO DE CADA DADO       OPERAÇÃO PERMITIDA          FAIXA DE ENDEREÇOS*
+        Dados são organizados em 4 diferentes tabelas: (ver slide) cada tabela é prória. Pode haver mesmo endereço para tabelas diferentes
+            TABELA               TAMANHO DE CADA DADO       OPERAÇÃO PERMITIDA          FAIXA DE ENDEREÇOS*(depende fabricante)
             Bobina                  1 bit (on/off)           Leitura/e Escrita            00001- 09999
                                   (valores discretos)
 
         Entradas Discretas         1 bit (on/off)              Apenas Leitura             10001 - 19999
+                                  (valores discretos)
 
-        Registradores de Entrada        16 bits 
+        Registradores de Entrada        16 bits                Apenas Leitura             30001 - 39999
                                   (valores numéricos)
 
-        Registradores de Saída
+        Registradores de Saída          16 bits                Leitura/e Escrita          40001 - 49999
+                                  (valores numéricos)
 
+        Só transmite 0 e 1 e inteiro de 16 bits
 
-        CÓDIGOS DAS PRINCIPAIS FUNÇÕES
-        
+        CÓDIGOS DAS PRINCIPAIS FUNÇÕES : olhar site SimplyModbus
+        resumo do protocolo modbus:
         Código          Ação        Tabela
         01 (01 hex)  -> Leitura -> Bobinas
         02 (02 hex) -> Leitura -> Entradas Discretas
